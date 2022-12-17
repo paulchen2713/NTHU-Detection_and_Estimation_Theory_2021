@@ -1,0 +1,203 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{comment}
+\usepackage[left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
+\title{\textbf{COM 5232 Detection and Estimation Theory}}
+\author{\textbf{Midterm Exam Solution}}
+\date{April 19, 2022\\
+13:20 $\sim$ 15:10
+}
+\begin{document}
+    \maketitle
+    \begin{enumerate}
+        \item\ \\
+            The matrix prewhitener $\mathbf D$ is given by $\mathbf C^{-1}=\mathbf D^T\mathbf D$.
+            \begin{align*}
+                    \mathbf C^{-1}&=\frac{1}{1-\rho^2}\begin{bmatrix}
+                    1 & -\rho\\
+                    -\rho & 1 
+                    \end{bmatrix}\\
+                    &=\frac{1}{1-\rho^2}\begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+                    -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    1+\rho & 0\\
+                    0 & 1-\rho 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}\\
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+                    \end{bmatrix}\\
+                    &=\left(\frac{1}{\sqrt{1-\rho^2}}\begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+                    -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    \sqrt{1+\rho} & 0\\
+                    0 & \sqrt{1-\rho} 
+                    \end{bmatrix}\right)
+                    \left(\frac{1}{\sqrt{1-\rho^2}}\begin{bmatrix}
+                    \sqrt{1+\rho} & 0\\
+                    0 & \sqrt{1-\rho} 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}\\
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+                    \end{bmatrix}\right)\\
+                    \Rightarrow &\ {\rm Choose}\ \mathbf D=\frac{1}{\sqrt{1-\rho^2}}\begin{bmatrix}
+                    \sqrt{1+\rho} & 0\\
+                    0 & \sqrt{1-\rho} 
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}\\
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+                    \end{bmatrix}
+            \end{align*}
+            take $\rho=0.5$ into matrix $\textbf{D}$, we obtain
+            \begin{align*}
+                \textbf{D}&=\frac{1}{\sqrt{0.75}}
+                \begin{bmatrix}
+                    \sqrt{1.5} & 0\\
+                    0 & \sqrt{0.5}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}\\
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+                \end{bmatrix}\\
+                &=\frac{1}{\sqrt{1.5}}
+                \begin{bmatrix}
+                    \sqrt{1.5} & -\sqrt{1.5}\\
+                    \sqrt{0.5} & \sqrt{0.5}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    1 & -1\\
+                    \sqrt{\frac{1}{3}} & \sqrt{\frac{1}{3}}
+                \end{bmatrix}
+            \end{align*}
+            \begin{flushright}
+                $\blacksquare$
+            \end{flushright}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item\ 
+            \begin{align*}
+                &\mathcal H_0 : x[n] = w[n] & n=0,1,\dots,N-1\\
+                &\mathcal H_1 : x[n] = s[n]+w[n] & n=0,1,\dots,N-1
+            \end{align*}
+            where $s[n]=Ar^n$ with $0<r<1$ and $w[n]$ is WGN with variance $\sigma^2$. Let $\mathbf x=[x[0],x[1],\dots,x[N-1]]^T$. Note that the MLE, $\hat{A}$, of $A$ is given by 
+            \begin{align*}
+                \hat{A} &= \arg\max_{A}p(\mathbf x;A,\mathcal H_1)\\
+                &=\arg\min_{A}\sum\limits_{n=0}^{N-1}(x[n]-Ar^n)^2\\
+                &=\frac{\sum\limits_{n=0}^{N-1}x[n]r^n}{\sum\limits_{n=0}^{N-1}r^{2n}}
+            \end{align*}
+            Then, the GLRT decide $\mathcal H_1$ if
+            \begin{align*}
+                \frac{p(\mathbf x;\hat{A},\mathcal H_1)}{p(\mathbf x;\mathcal H_0)} &= \frac{\frac{1}{(2\pi\sigma^2)^{\frac{N}{2}}}e^{-\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}(x[n]-\hat{A}r^n)^2}}{\frac{1}{(2\pi\sigma^2)^{\frac{N}{2}}}e^{-\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}x[n]^2}}\\
+                &= \frac{e^{-\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}(x[n]-\hat{A}r^n)^2}}{e^{-\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}x[n]^2}}>\gamma\\
+                ({\rm take\ ln}) &\Rightarrow -\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}(x[n]-\hat{A}r^n)^2+\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}x[n]^2>\ln{(\gamma)}\\
+                &\Rightarrow 2\hat{A}\sum\limits_{n=0}^{N-1}x[n]r^n-\hat{A}^2\sum\limits_{n=0}^{N-1}r^{2n}>2\sigma^2\ln{(\gamma)}\\
+                &\Rightarrow 2\hat{A}\frac{\sum\limits_{n=0}^{N-1}x[n]r^n}{\sum\limits_{n=0}^{N-1}r^{2n}}-\hat{A}^2>\frac{2\sigma^2\ln{(\gamma)}}{\sum\limits_{n=0}^{N-1}r^{2n}}\triangleq \gamma^{'}\\
+                &\Rightarrow \hat{A}^2>\gamma^{'}
+            \end{align*}
+            \begin{flushright}
+                $\blacksquare$
+            \end{flushright}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item\ \\
+            The observed sample $x[n]$ is
+            \begin{align*}
+                x[n]=s[n]+w[n],n=0,1,\ldots,,2N-1
+            \end{align*}
+            with $s[n]$ is mention before and $w[n]\sim\mathcal{N}(\textbf{0},\sigma^2\textbf{I})$.
+            Now, let $\textbf{x}=[x[0],x[1],\dots,x[N-1]]^T$, the NP detector $L(\textbf{x})$ decides $\mathcal{H}_1$ if
+            \begin{align*}
+                L(\textbf{x})=\frac{p(\textbf{x};\mathcal{H}_1)}{p(\textbf{x};\mathcal{H}_0)}=\frac{\frac{1}{(2\pi\sigma^2)^{N/2}}e^{-\frac{1}{2\sigma^2}\sum \limits_{n=0}^{N-1}(x[n]-A)^2}\frac{1}{(2\pi\sigma^2)^{N/2}}e^{-\frac{1}{2\sigma^2}\sum \limits_{n=N}^{2N-1}(x[n]-2A)^2}}{\frac{1}{(2\pi\sigma^2)^{N/2}}e^{-\frac{1}{2\sigma^2}\sum \limits_{n=0}^{N-1}(x[n]+A)^2}\frac{1}{(2\pi\sigma^2)^{N/2}}e^{-\frac{1}{2\sigma^2}\sum \limits_{n=N}^{2N-1}x^2[n]}}>\gamma
+            \end{align*}
+            which simplifies to 
+            \begin{align*}
+                \ln L(\textbf{x})=\frac{1}{2\sigma^2}\sum \limits_{n=0}^{N-1}\left[ (x[n]+A)^2-(x[n]-A)^2\right]+\frac{1}{2\sigma^2}\sum \limits_{n=N}^{2N-1}\left[ x^2[n]-(x[n]-2A)^2\right]>\ln\gamma
+            \end{align*}
+            we have finally
+            \begin{align*}
+                \ln L(\textbf{x})&=\frac{1}{2\sigma^2}\sum\limits_{n=0}^{N-1}4Ax[n]+\frac{1}{2\sigma^2}\sum\limits_{n=N}^{2N-1}4Ax[n]-\frac{2NA^2}{\sigma^2}>\ln\gamma\\
+                &\Rightarrow \frac{1}{2N}\sum\limits_{n=0}^{2N-1}x[n]>\frac{\sigma^2}{4AN}\left(\ln\gamma+\frac{2NA^2}{\sigma^2}\right) \triangleq \gamma^{'}
+            \end{align*}
+            let the test statistic be $T(\textbf{x})=\frac{1}{2N}\sum\limits_{n=0}^{2N-1}x[n]$, the NP detector compares the sample mean $\bar{x}=T(\textbf{x})$ to a threshold $\gamma'$.
+            \begin{flushright}
+                $\blacksquare$
+            \end{flushright}
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item\ \\
+            If directly use $\hat{\mathbf s}=\frac{\sigma_A^2}{\sigma_A^2+\frac{\sigma^2}{N}}\bar{x}\mathbf{1}$, then the NP detector decides $\mathcal H_1$ if
+            \begin{align*}
+                T(x) = \mathbf x^T\hat{\mathbf s}
+                     =\frac{N\sigma_A^2}{\sigma_A^2+\frac{\sigma^2}{N}}\bar{x}^2
+                     >\gamma^{''}
+            \end{align*}
+            Or, let $\mathbf x=[x[0],x[1],\dots,x[N-1]]^T$, then we have
+            \begin{align*}
+                &\mathcal H_0 : \mathbf x\sim\mathcal N(0,\sigma^2\mathbf I)\\
+                &\mathcal H_1 : \mathbf x\sim\mathcal N(0,\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)
+            \end{align*}
+            Then the NP detector decides $\mathcal H_1$ if
+            \begin{align*}
+                \frac{p(\mathbf x;\mathcal H_1)}{p(\mathbf x;\mathcal H_0)} &= \frac{\frac{1}{(2\pi)^{\frac{N}{2}}{\det}^{\frac{1}{2}}(\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)}\exp{\left(-\frac{1}{2}\mathbf x^T(\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)^{-1}\mathbf x\right)}}{\frac{1}{(2\pi\sigma^2)^{\frac{N}{2}}}\exp{\left(-\frac{1}{2\sigma^2}\mathbf x^T\mathbf x\right)}}>\gamma\\
+                ({\rm take\ ln}) &\Rightarrow -\frac{1}{2}\mathbf x^T\left((\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)^{-1}-\frac{1}{\sigma^2}\mathbf I\right)\mathbf x>\ln{(\gamma)}+\frac{1}{2}\ln\left(\det{(\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)}\right)-\frac{N}{2}\ln{\sigma^2}\triangleq \gamma^{'}\\
+                &\Rightarrow T(x)\triangleq \mathbf x^T\underbrace{\sigma^{2}\left(\frac{1}{\sigma^2}\mathbf I-(\sigma_A^2\mathbf{11}^T+\sigma^2\mathbf I)^{-1}\right)\mathbf x}_{=\hat{\mathbf s}}>2\sigma^2\gamma^{'}
+            \end{align*}
+            By matrix inversion lemma, we derive
+            \begin{align*}
+                \hat{\mathbf s}=\frac{\sigma_A^2}{\sigma_A^2+\frac{\sigma^2}{N}}\bar{x}\mathbf{1}
+            \end{align*}
+            $\Rightarrow$ The NP detector decides $\mathcal H_1$ if
+            \begin{align*}
+                T(x) = \mathbf x^T\hat{\mathbf s}
+                     =\frac{N\sigma_A^2}{\sigma_A^2+\frac{\sigma^2}{N}}\bar{x}^2
+                     >2\sigma^2\gamma{'}
+            \end{align*}
+            \begin{flushright}
+                $\blacksquare$
+            \end{flushright}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item\ \\
+        Mean : 
+        
+        \begin{align*}
+            \mathbb E\left[\xi_1\right]&= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\mathbb E\left[A\cos{(2\pi f_0n+\phi)+w[n]}\right]\sin{(2\pi f_0 n)}\\
+            &= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\left(A\cos{(2\pi f_0n+\phi)}\sin{(2\pi f_0n)}+\mathbb E\left[w[n]\right]\sin{(2\pi f_0n)}\right)\\
+            &= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\left(\frac{A}{2}(\sin{(4\pi f_0n+\phi)}-\sin{(\phi)})\right)\\
+            &\approx -\frac{\sqrt{N}}{2}A\sin{(\phi)}
+        \end{align*}
+        \begin{align*}
+            \mathbb E\left[\xi_2\right] &= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\mathbb E\left[A\cos{(2\pi f_0n+\phi)+w[n]}\right]\cos{(2\pi f_0 n)}\\
+            &= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\left(A\cos{(2\pi f_0n+\phi)}\cos{(2\pi f_0n)}+\mathbb E\left[w[n]\right]\cos{(2\pi f_0n)}\right)\\
+            &= \frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\left(\frac{A}{2}(\cos{(4\pi f_0n+\phi)}+\cos{(\phi)})\right)\\
+            &\approx \frac{\sqrt{N}}{2}A\cos{(\phi)}
+        \end{align*}
+        
+        Covariance : 
+        
+        Use the fact $Cov(\underbrace{\xi_1+a}_{\xi_1^{'}},\underbrace{\xi_2+b}_{\xi_2^{'}})=Cov(\xi_1,\xi_2)$, where $a,b$ are 
+        \begin{align*}
+            &a = -\frac{A}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\cos{(2\pi f_0n+\phi)}\sin{(2\pi f_0n)}\\
+            &b = -\frac{A}{\sqrt{N}}\sum\limits_{n=0}^{N-1}\cos{(2\pi f_0n+\phi)}\cos{(2\pi f_0n)}
+        \end{align*}
+        Then
+        \begin{align*}
+            &Cov(\xi_1,\xi_2)=Cov(\xi_1^{'},\xi_2^{'})\\
+            &= \mathbb E\left[(\xi_1^{'}-\mathbb E\left[\xi_1^{'}\right])(\xi_2^{'}-\mathbb E\left[\xi_2^{'}\right])\right] \\
+            &= \frac{1}{N}\sum\limits_{m=0}^{N-1}\sum\limits_{n=0}^{N-1}\mathbb E\left[w[m]w[n]\right]\cos{(2\pi f_0m)}\sin{(2\pi f_0n)}\\
+            &= \sigma^2\sum\limits_{n=0}^{N-1}\cos{(2\pi f_0n)}\sin{(2\pi f_0n)}\\
+            &= \frac{\sigma^2}{2}\sum\limits_{n=0}^{N-1}\sin{(4\pi f_0n)}\\
+            &\approx 0
+        \end{align*}
+        \begin{flushright}
+            $\blacksquare$
+        \end{flushright}     
+    \end{enumerate}
+    \rule{\textwidth}{0.4pt}
+\end{document}

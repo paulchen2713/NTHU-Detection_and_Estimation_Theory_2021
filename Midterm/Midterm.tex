@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage[left=1.5cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
+\title{\textbf{COM 5232 Detection and Estimation Theory}}
+\author{\textbf{Midterm Exam}}
+\date{April 19, 2022\\
+13:20 $\sim$ 15:10
+}
+\begin{document}
+    \maketitle
+    \textit{Note: }There are 5 problems with total 100 points within 2 pages, please write your answer with detail in the answer sheet.
+
+    {\bf No credit without detail.  No calculator. Closed books.}
+
+    \begin{enumerate}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item(20\%) 
+            Find the matrix prewhitener $\mathbf D$ for the covariance matrix
+            \begin{align*}
+                \mathbf C=\begin{bmatrix}
+                    1 & 0.5\\
+                    0.5 & 1 
+                    \end{bmatrix}.
+            \end{align*}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+        \item(20\%) 
+            We wish to detect a damped exponential $s[n]=Ar^n$, where $A$ is unknown and $r$ is known $(0<r<1)$, in WGN with known variance $\sigma^2$. Under $\mathcal H_0$, $x[n]=w[n]$ and under $\mathcal H_1$, $x[n]=Ar^n+w[n]$ for $n=0,1,\dots,N-1$. Show that the GLRT decides $\mathcal{H}_1$ if $\hat{A}^2>\gamma'$, where $\hat{A}$ is the MLE of A, and equals to
+            \begin{align*}
+                \hat{A}=\frac{\sum\limits_{n=0}^{N-1}x[n]r^n}{\sum\limits_{n=0}^{N-1}r^{2n}}.
+            \end{align*}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \item(20\%) 
+            Consider the detection of a signal $s[n]$ embedded in WGN with variance $\sigma^2$ based on the observed samples $x[n],\ n=0,1,\dots,2N-1$. The signal is given by
+            \begin{align*}
+                s[n]=\begin{cases}
+                    -A & n=0,1,\dots,N-1\\
+                    0 & n=N,N+1,\dots,2N-1 
+                    \end{cases}
+            \end{align*}
+            under $\mathcal H_0$; and by
+            \begin{align*}
+                s[n]=\begin{cases}
+                    A & n=0,1,\dots,N-1\\
+                    2A & n=N,N+1,\dots,2N-1 
+                    \end{cases}
+            \end{align*}
+            under $\mathcal H_1$ and assume $A>0$. Find the NP detector to the simplest form.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+        \item(20\%) 
+            We wish to detect a random DC level $A$ embedded in WGN with variance $\sigma^2$. Under $\mathcal H_0$, $x[n]=w[n]$ and under $\mathcal H_1$, $x[n]=A+w[n]$ for $n=0,1,\dots,N-1$, where $A\sim\mathcal N(0,\sigma_A^2)$. Find the NP detector to the simplest form.
+            
+            Hint : You can directly use the MMSE estimator of the signal,\\i.e.
+            \begin{align*}
+                \hat{\mathbf s}=\frac{\sigma_A^2}{\sigma_A^2+\frac{\sigma^2}{N}}\bar{x}\mathbf{1}
+            \end{align*}
+            where $\bar{x}$ is the sample mean and $\mathbf{1}$ is an $N\times1$ vector of all ones. Or use the matrix inversion lemma
+            \begin{align*}
+                \left(\textbf{A}+\textbf{u}\textbf{u}^T \right)^{-1}=\textbf{A}^{-1}-\frac{\textbf{A}^{-1}\textbf{u}\textbf{u}^T\textbf{A}^{-1}}{1+\textbf{u}^T\textbf{A}^{-1}\textbf{u}}
+            \end{align*}
+            to justify your answer.
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+        \item(20\%) 
+            Find the means and covariance for the random variables
+            \begin{align*}
+                &\xi_1=\frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}x[n]\sin{\left(2\pi f_0n\right)}.\\
+                &\xi_2=\frac{1}{\sqrt{N}}\sum\limits_{n=0}^{N-1}x[n]\cos{\left(2\pi f_0n\right)} 
+            \end{align*}
+            The data are $x[n]=A\cos{\left(2\pi f_0n+\phi\right)}+w[n]$, where $w[n]$ is WGN with variance $\sigma^2$. Assume that $f_0$ is not near 0 or $1/2$ and $N$ is large enough so that any ``double-frequency'' term can be approximated as zero.
+            
+            i.e.
+            \begin{align*}
+                \sum\limits_{n=0}^{N-1}\sin{(4\pi f_0n)}\approx 0\qquad{\rm and}\qquad\sum\limits_{n=0}^{N-1}\cos{(4\pi f_0n)}\approx 0
+            \end{align*}
+    \end{enumerate}
+    \rule{\textwidth}{0.4pt}
+\end{document}
